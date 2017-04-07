@@ -9,7 +9,7 @@
 #   - A hostname/ip can be a member of multiple groups
 
 [mvhosts]
-mtci01 ansible_host=192.168.1.9 ansible_port=2211
+mtci01 ansible_host=192.168.1.9 
 mtci02 ansible_host=192.168.1.13 ansible_port=2210
 mtci03 ansible_host=192.168.1.5 ansible_port=2204
 
