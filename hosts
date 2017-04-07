@@ -7,6 +7,8 @@
 #   - Groups of hosts are delimited by [header] elements
 #   - You can enter hostnames or ip addresses
 #   - A hostname/ip can be a member of multiple groups
+[vms_test]
+test01 ansible_host=192.168.1.224
 
 [mvhosts]
 mtci01 ansible_host=192.168.1.9 
@@ -24,6 +26,7 @@ student07 ansible_host=192.168.1.57 ansible_port=2257
 student08 ansible_host=192.168.1.58 ansible_port=2258
 student09 ansible_host=192.168.1.59 ansible_port=2259
 student10 ansible_host=192.168.1.60 ansible_port=2260
+
 student61 ansible_host=192.168.1.61 ansible_port=2261
 student62 ansible_host=192.168.1.62 ansible_port=2262
 student63 ansible_host=192.168.1.63 ansible_port=2263
@@ -46,8 +49,6 @@ student21 ansible_host=192.168.1.21 ansible_port=2221
 student22 ansible_host=192.168.1.22 ansible_port=2222
 student23 ansible_host=192.168.1.23 ansible_port=2223
 student24 ansible_host=192.168.1.24 ansible_port=2224
-teacher01 ansible_host=192.168.1.25 ansible_port=2225
-teacher02 ansible_host=192.168.1.26 ansible_port=2226
 
 student40 ansible_host=192.168.1.40 ansible_port=2240
 student41 ansible_host=192.168.1.41 ansible_port=2241
@@ -59,6 +60,10 @@ student46 ansible_host=192.168.1.46 ansible_port=2246
 student47 ansible_host=192.168.1.47 ansible_port=2247
 student48 ansible_host=192.168.1.48 ansible_port=2248
 student49 ansible_host=192.168.1.49 ansible_port=2249
+
+[vms_teacher]
+teacher01 ansible_host=192.168.1.25 ansible_port=2225
+teacher02 ansible_host=192.168.1.26 ansible_port=2226
 
 [vms_mtci03]
 student30 ansible_host=192.168.1.30 ansible_port=2230
