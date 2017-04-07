@@ -13,7 +13,7 @@ mtci01 ansible_host=192.168.1.9
 mtci02 ansible_host=192.168.1.13 ansible_port=2210
 mtci03 ansible_host=192.168.1.5 ansible_port=2204
 
-[mtci01]
+[vms_mtci01]
 student01 ansible_host=192.168.1.51 ansible_port=2251
 student02 ansible_host=192.168.1.52 ansible_port=2252
 student03 ansible_host=192.168.1.53 ansible_port=2253
@@ -35,7 +35,7 @@ student68 ansible_host=192.168.1.68 ansible_port=2268
 student69 ansible_host=192.168.1.69 ansible_port=2269
 student70 ansible_host=192.168.1.70 ansible_port=2270
 
-[mtci02]
+[vms_mtci02]
 student15 ansible_host=192.168.1.15 ansible_port=2215
 student16 ansible_host=192.168.1.16 ansible_port=2216
 student17 ansible_host=192.168.1.17 ansible_port=2217
@@ -60,7 +60,7 @@ student47 ansible_host=192.168.1.47 ansible_port=2247
 student48 ansible_host=192.168.1.48 ansible_port=2248
 student49 ansible_host=192.168.1.49 ansible_port=2249
 
-[mtci03]
+[vms_mtci03]
 student30 ansible_host=192.168.1.30 ansible_port=2230
 student31 ansible_host=192.168.1.31 ansible_port=2231
 student32 ansible_host=192.168.1.32 ansible_port=2232
