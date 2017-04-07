@@ -8,6 +8,11 @@
 #   - You can enter hostnames or ip addresses
 #   - A hostname/ip can be a member of multiple groups
 
+[mvhosts]
+mtci01 ansible_host=192.168.1.9 ansible_port=2211
+mtci02 ansible_host=192.168.1.13 ansible_port=2210
+mtci03 ansible_host=192.168.1.5 ansible_port=2204
+
 [mtci01]
 student01 ansible_host=192.168.1.51 ansible_port=2251
 student02 ansible_host=192.168.1.52 ansible_port=2252
