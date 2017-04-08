@@ -20,7 +20,7 @@
        state: running
   - name: Installing Tigervnc-server
     yum:
-      name: Tigervnc-server
+      name: tigervnc-server
       state: present
   - name: Starting Tigervnc-server
     service:
