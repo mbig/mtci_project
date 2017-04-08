@@ -55,4 +55,16 @@
       path: /apps
       owner: oracle 
       mode: 0755
-      recursive: yes 
+      recurse: yes 
+  - name: Enforce permission on /oradata
+    file:
+      path: /oradata
+      owner: oracle 
+      mode: 0755
+      recurse: yes
+  - name: Enforce permission on /backups
+    file:
+      path: /backups
+      owner: oracle 
+      mode: 0755
+      recurse: yes
