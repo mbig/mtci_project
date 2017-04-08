@@ -18,6 +18,14 @@
     service:
        name: httpd
        state: running
+  - name: Installing Tigervnc-server
+    yum:
+      name: Tigervnc-server
+      state: present
+  - name: Starting Tigervnc-server
+    service:
+        name: vncserver
+        state: running
   #- name: Check for proper return
    # uri:
     #  url: http://localhost
