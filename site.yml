@@ -46,22 +46,55 @@
     yum:
       name: https://people.centos.org/hughesjr/chromium/6/x86_64/RPMS/chromium-browser-38.0.2125.111-1.el6.centos.x86_64.rpm
       state: present
+
   - name: Install flash plugin for Oracle Enterprise Manager
     yum:
       name: flash-plugin
       state: present
+
+  - name: Install rdesktop
+    yum:
+      name: rdesktop
+      state: present
+
+  - name: Copy sqldeveloper for installation
+    copy:
+      src: /usr/local/src/sqldeveloper-4.0.3.16.84-1.noarch.rpm
+      dest: /usr/local/src/sqldeveloper-4.0.3.16.84-1.noarch.rpm
+      owner: root
+      group: root
+      mode: 0644
+  - name: Install sqldeveloper
+    yum:
+      name: /usr/local/src/sqldeveloper-4.0.3.16.84-1.noarch.rpm
+      state: present
+
+  - name: Copy jdk rpm for installation
+    copy:
+      src: /usr/local/src/jdk-8u101-linux-x64.rpm
+      dest: /usr/local/src/jdk-8u101-linux-x64.rpm
+      owner: root
+      group: root
+      mode: 0644
+  - name: Install java jdk
+    yum:
+      name: /usr/local/src/jdk-8u101-linux-x64.rpm
+      state: present
+
   - name: Enforce permission on /apps
     file:
       path: /apps
       owner: oracle 
       mode: 0755
       recurse: yes 
+
   - name: Enforce permission on /oradata
     file:
       path: /oradata
       owner: oracle 
       mode: 0755
       recurse: yes
+
   - name: Enforce permission on /backups
     file:
       path: /backups
