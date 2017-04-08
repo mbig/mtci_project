@@ -69,6 +69,11 @@
       name: /usr/local/src/sqldeveloper-4.0.3.16.84-1.noarch.rpm
       state: present
 
+  - name: Remove sqldeveloper rpm
+    file:
+      path: /usr/local/src/sqldeveloper-4.0.3.16.84-1.noarch.rpm
+      state: absent
+
   - name: Copy jdk rpm for installation
     copy:
       src: /usr/local/src/jdk-8u101-linux-x64.rpm
@@ -80,6 +85,12 @@
     yum:
       name: /usr/local/src/jdk-8u101-linux-x64.rpm
       state: present
+
+  - name: Remove jdk rpm
+    file:
+      path: /usr/local/src/jdk-8u101-linux-x64.rpm
+      state: absent
+
 
   - name: Enforce permission on /apps
     file:
