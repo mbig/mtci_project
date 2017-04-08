@@ -1,0 +1,27 @@
+---
+- name: Install Apache Webserver
+  hosts: vms_test
+  become: yes
+
+  tasks:
+  - name: Installing httpd
+    yum:
+      name: httpd
+      state: present
+    changed_when: true
+  - name: Installing Elinks
+    yum:
+      name: elinks 
+      state: present
+    changed_when: true
+  - name: Starting Webserver
+    service:
+       name: httpd
+       state: running
+  - name: Check for proper return
+    uri:
+      url: http://localhost
+      return_content: yes
+    register: result
+    until: '"Hello Metropoltech" in result.content'
+    
