@@ -1,0 +1,6 @@
+---
+# tasks file for mtci.rdesktop
+- name: Install rdesktop
+  yum:
+    name: rdesktop
+    state: present

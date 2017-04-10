@@ -1,0 +1,6 @@
+---
+# tasks file for mtci.chromiumbrowser
+- name: Install Chromium Browser
+  yum:
+    name: https://people.centos.org/hughesjr/chromium/6/x86_64/RPMS/chromium-browser-38.0.2125.111-1.el6.centos.x86_64.rpm
+    state: present

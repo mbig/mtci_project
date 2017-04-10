@@ -1,0 +1,12 @@
+---
+# tasks file for mtci.repos
+- name: Add EPEL Repository
+  yum_repository:
+      name: epel
+      description: EPEL YUM repo
+      baseurl: https://dl.fedoraproject.org/pub/epel/$releasever/$basearch/
+      enabled: yes
+- name: Install Adobe FLash Release repo
+  yum:
+    name: http://linuxdownload.adobe.com/linux/x86_64/adobe-release-x86_64-1.0-1.noarch.rpm
+    state: present

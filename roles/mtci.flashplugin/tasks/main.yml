@@ -1,0 +1,6 @@
+---
+# tasks file for mtci.flashplugin
+- name: Install flash plugin for Oracle Enterprise Manager
+  yum:
+    name: flash-plugin
+    state: present

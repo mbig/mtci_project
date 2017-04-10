@@ -22,10 +22,10 @@
     yum:
       name: tigervnc-server
       state: present
-  - name: Starting Tigervnc-server
-    service:
-        name: vncserver
-        state: running
+  #- name: Starting Tigervnc-server
+   # service:
+    #    name: vncserver
+     #   state: running
   #- name: Check for proper return
    # uri:
     #  url: http://localhost

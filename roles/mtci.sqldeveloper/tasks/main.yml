@@ -1,0 +1,18 @@
+---
+# tasks file for mtci.sqldeveloper
+- name: Copy SQLdeveloper RPM  for Installation
+  copy:
+    src: /usr/local/src/sqldeveloper-4.0.3.16.84-1.noarch.rpm
+    dest: /usr/local/src/sqldeveloper-4.0.3.16.84-1.noarch.rpm
+    owner: root
+    group: root
+    mode: 0644
+- name: Install SQLdeveloper
+  yum:
+    name: /usr/local/src/sqldeveloper-4.0.3.16.84-1.noarch.rpm
+    state: present
+
+- name: Remove SQLdeveloper RPM 
+  file:
+    path: /usr/local/src/sqldeveloper-4.0.3.16.84-1.noarch.rpm
+    state: absent

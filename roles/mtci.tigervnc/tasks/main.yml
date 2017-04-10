@@ -1,0 +1,6 @@
+---
+# tasks file for mtci.tigervnc
+- name: Installing Tigervnc-server
+  yum:
+    name: tigervnc-server
+    state: present
