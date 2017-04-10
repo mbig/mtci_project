@@ -1,6 +1,6 @@
 ---
 - name: Install MTCI System Requirements
-  hosts: vms_test
+  hosts: vms_mtci03
   become: yes
 
   roles:
