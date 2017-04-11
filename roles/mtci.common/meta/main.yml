@@ -221,7 +221,7 @@ dependencies:
   # Be sure to remove the '[]' above if you add dependencies
   # to this list.
     - mtci.repos
-    - mtci.java
+   # - mtci.java
     - mtci.chromiumbrowser
     - mtci.fileperms
     - mtci.flashplugin

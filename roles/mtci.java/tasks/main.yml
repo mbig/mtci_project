@@ -1,5 +1,6 @@
 ---
-# tasks file for mtci.java
+
+
 - name: Copy JDK RPM for installation
   copy:
     src: /usr/local/src/jdk-8u101-linux-x64.rpm
@@ -7,12 +8,15 @@
     owner: root
     group: root
     mode: 0644
+
 - name: Install JAVA JDK
   yum:
     name: /usr/local/src/jdk-8u101-linux-x64.rpm
     state: present
 
+
 - name: Remove JDK RPM
   file:
     path: /usr/local/src/jdk-8u101-linux-x64.rpm
     state: absent
+ 

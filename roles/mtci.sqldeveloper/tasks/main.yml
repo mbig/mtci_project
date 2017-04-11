@@ -1,5 +1,10 @@
 ---
 # tasks file for mtci.sqldeveloper
+- name: Check if SQLdeveloper is installed
+  yum: 
+    list: sqldeveloper
+  register: rpm_check
+
 - name: Copy SQLdeveloper RPM  for Installation
   copy:
     src: /usr/local/src/sqldeveloper-4.0.3.16.84-1.noarch.rpm
@@ -7,10 +12,12 @@
     owner: root
     group: root
     mode: 0644
+  #when: (rpm_check.results[0].yumstate != 'installed') ||  !(rpm_check.results[0].yumstate)
 - name: Install SQLdeveloper
   yum:
     name: /usr/local/src/sqldeveloper-4.0.3.16.84-1.noarch.rpm
     state: present
+  #when: rpm_check.results[0].yumstate != 'installed'
 
 - name: Remove SQLdeveloper RPM 
   file:
