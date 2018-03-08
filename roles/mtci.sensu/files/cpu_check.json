@@ -1,0 +1,10 @@
+{
+  "checks": {
+    "cpu-check": {
+      "command": "/opt/sensu/embedded/bin/check-cpu.rb",
+      "standalone": true,
+      "handlers": ["default", "debug"],
+      "interval": 30
+    }
+  }
+}

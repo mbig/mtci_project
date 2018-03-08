@@ -8,5 +8,13 @@
       enabled: yes
 - name: Install Adobe FLash Release repo
   yum:
-    name: http://linuxdownload.adobe.com/linux/x86_64/adobe-release-x86_64-1.0-1.noarch.rpm
+   # name: http://linuxdownload.adobe.com/linux/x86_64/adobe-release-x86_64-1.0-1.noarch.rpm
+    name: http://linuxdownload.adobe.com/adobe-release/adobe-release-x86_64-1.0-1.noarch.rpm
     state: present
+
+- name: Add Sensu Repository
+  yum_repository:
+      name: sensu
+      description: Sensu YUM repo
+      baseurl: https://sensu.global.ssl.fastly.net/yum/$releasever/$basearch/
+      enabled: yes

@@ -1,0 +1,10 @@
+{
+  "checks": {
+    "ntp-check": {
+      "command": "/opt/sensu/embedded/bin/check-ntp.rb",
+      "standalone": true,
+      "handlers": ["default", "debug"],
+      "interval": 80
+    }
+  }
+}

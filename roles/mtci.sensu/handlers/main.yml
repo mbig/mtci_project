@@ -1,0 +1,7 @@
+---
+# handlers file for mtci.sensu
+
+- name: restart sensu-client
+  service:
+    name: sensu-client
+    state: restarted

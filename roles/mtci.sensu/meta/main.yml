@@ -1,7 +1,7 @@
 galaxy_info:
-  author: Gefter Chongong
-  description: Senior System Engineer
-  company: Metropoltech Inc
+  author: your name
+  description: your description
+  company: your company (optional)
 
   # If the issue tracker for your role is not on github, uncomment the
   # next line and provide a value
@@ -40,6 +40,7 @@ galaxy_info:
   #  - 5.8
   #  - 5.9
   #  - 6.0
+  #  - 6.1
   #- name: Fedora
   #  versions:
   #  - all
@@ -53,6 +54,7 @@ galaxy_info:
   #  - 23
   #  - 24
   #  - 25
+  #  - 26
   #- name: DellOS
   #  versions:
   #  - all
@@ -92,6 +94,10 @@ galaxy_info:
   #  versions:
   #  - all
   #  - any
+  #- name: macOS
+  #  versions:
+  #  - all
+  #  - Sierra
   #- name: IOS
   #  versions:
   #  - all
@@ -128,6 +134,7 @@ galaxy_info:
   #- name: Ubuntu
   #  versions:
   #  - all
+  #  - artful
   #  - lucid
   #  - maverick
   #  - natty
@@ -142,6 +149,7 @@ galaxy_info:
   #  - wily
   #  - xenial
   #  - yakkety
+  #  - zesty
   #- name: Debian
   #  versions:
   #  - all
@@ -216,16 +224,7 @@ galaxy_info:
     # NOTE: A tag is limited to a single word comprised of
     # alphanumeric characters. Maximum 20 tags per role.
 
-dependencies: 
+dependencies: []
   # List your role dependencies here, one per line.
   # Be sure to remove the '[]' above if you add dependencies
   # to this list.
-    - mtci.repos
-   # - mtci.java
-   # - mtci.chromiumbrowser
-    #- mtci.fileperms
-    #- mtci.flashplugin
-    #- mtci.rdesktop
-    #- mtci.sqldeveloper
-    #- mtci.tigervnc
-    - mtci.sensu

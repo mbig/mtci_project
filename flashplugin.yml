@@ -1,0 +1,13 @@
+---
+- name: Flashplugin check
+  hosts: vms_mtci03 
+  become: yes
+
+  tasks:
+  - name: Checking if flashplugin is installed 
+    command: rpm -q flash-plugin
+    register: output
+
+#  - debug: msg="{{ output.stdout }}"
+  - debug: var=output.stdout_lines
+    

@@ -1,0 +1,10 @@
+{
+  "checks": {
+    "disk-check": {
+      "command": "/opt/sensu/embedded/bin/check-disk-usage.rb -t xfs",
+      "standalone": true,
+      "interval": 30,
+      "handler": "debug"
+    }
+  }
+}

@@ -1,0 +1,76 @@
+---
+# tasks file for mtci.sensu
+- name: Adding sensu app key 
+  rpm_key:
+    key: https://repositories.sensuapp.org/yum/pubkey.gpg
+    validate_certs: no
+    state: present
+
+- name: Installing Sensu
+  yum:
+    name: sensu
+    state: present
+
+- name: enable sensu-client to survive reboot
+  service: 
+    name: sensu-client 
+    enabled: yes
+    state: started
+
+- name: Installing disk check plugin
+  command: sensu-install -p disk-checks
+
+- name: Installing cpu check plugin
+  command: sensu-install -p cpu-checks
+   
+- name: Installing ntp check plugin
+  command: sensu-install -p ntp
+
+- name: Copy sensu config file
+  copy:
+    src: config.json
+    dest: /etc/sensu/
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Copy sensu disk check file
+  copy:
+    src: disk_check.json
+    dest: /etc/sensu/conf.d/
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Copy sensu cpu-check file
+  copy:
+    src: cpu_check.json
+    dest: /etc/sensu/conf.d/
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Copy sensu ntp-check file
+  copy:
+    src: ntp_check.json
+    dest: /etc/sensu/conf.d/
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Copy sensu transport file
+  copy:
+    src: transport.json
+    dest: /etc/sensu/conf.d/
+    owner: root
+    group: root
+    mode: 0644
+
+- name: generate /etc/sensu/config.json
+  template:
+    src: sensu.client.config.json.j2
+    dest: /etc/sensu/conf.d/client.json
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart sensu-client
