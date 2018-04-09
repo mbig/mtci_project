@@ -9,5 +9,5 @@
     register: output
 
 #  - debug: msg="{{ output.stdout }}"
-  - debug: var=output.stdout_lines
+#  - debug: var=output.stdout_lines
     
