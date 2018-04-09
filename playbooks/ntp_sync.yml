@@ -1,0 +1,10 @@
+---
+- name: syncing ntp time
+  hosts: all
+  become: yes
+
+  tasks:
+  - name: sync time to ntp
+    command: ntpdate -u 192.168.1.13 
+
+    

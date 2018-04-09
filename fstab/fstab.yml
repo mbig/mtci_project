@@ -1,0 +1,13 @@
+---
+- name: Get fstab
+  hosts: vms_mtci02 
+  become: yes
+
+  tasks:
+  - name: Running cat /etc/fstab 
+    command: cat /etc/fstab
+    register: output
+
+#  - debug: msg="{{ output.stdout }}"
+  - debug: var=output.stdout_lines
+    

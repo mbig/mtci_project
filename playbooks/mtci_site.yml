@@ -1,0 +1,7 @@
+---
+- name: Install MTCI System Requirements
+  hosts: all
+  become: yes
+
+  roles:
+     - mtci.common

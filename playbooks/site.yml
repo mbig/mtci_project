@@ -1,0 +1,122 @@
+---
+- name: Install Apache Webserver
+  hosts: vms_test
+  become: yes
+
+  tasks:
+  - name: Installing httpd
+    yum:
+      name: httpd
+      state: present
+    changed_when: false
+  - name: Installing Elinks
+    yum:
+      name: elinks 
+      state: present
+    changed_when: false
+  - name: Starting Webserver
+    service:
+       name: httpd
+       state: running
+  - name: Installing Tigervnc-server
+    yum:
+      name: tigervnc-server
+      state: present
+  #- name: Starting Tigervnc-server
+   # service:
+    #    name: vncserver
+     #   state: running
+  #- name: Check for proper return
+   # uri:
+    #  url: http://localhost
+     # return_content: yes
+   # register: result
+   # until: '"Hello Metropoltech" in result.content'
+  - name: Enforce /etc/sudoers file permission
+    file:
+      path: /etc/sudoers
+      owner: root
+      group: root
+      mode: 0440
+  - name: Add EPEL repository
+    yum_repository:
+         name: epel
+         description: EPEL YUM repo
+         baseurl: https://dl.fedoraproject.org/pub/epel/$releasever/$basearch/
+         enabled: yes
+
+  - name: Install adobe release repo
+    yum:
+      name: http://linuxdownload.adobe.com/linux/x86_64/adobe-release-x86_64-1.0-1.noarch.rpm
+      state: present
+
+  - name: Install Chromium browser
+    yum:
+      name: https://people.centos.org/hughesjr/chromium/6/x86_64/RPMS/chromium-browser-38.0.2125.111-1.el6.centos.x86_64.rpm
+      state: present
+
+  - name: Install flash plugin for Oracle Enterprise Manager
+    yum:
+      name: flash-plugin
+      state: present
+
+  - name: Install rdesktop
+    yum:
+      name: rdesktop
+      state: present
+
+  - name: Copy sqldeveloper for installation
+    copy:
+      src: /usr/local/src/sqldeveloper-4.0.3.16.84-1.noarch.rpm
+      dest: /usr/local/src/sqldeveloper-4.0.3.16.84-1.noarch.rpm
+      owner: root
+      group: root
+      mode: 0644
+  - name: Install sqldeveloper
+    yum:
+      name: /usr/local/src/sqldeveloper-4.0.3.16.84-1.noarch.rpm
+      state: present
+
+  - name: Remove sqldeveloper rpm
+    file:
+      path: /usr/local/src/sqldeveloper-4.0.3.16.84-1.noarch.rpm
+      state: absent
+
+  - name: Copy jdk rpm for installation
+    copy:
+      src: /usr/local/src/jdk-8u101-linux-x64.rpm
+      dest: /usr/local/src/jdk-8u101-linux-x64.rpm
+      owner: root
+      group: root
+      mode: 0644
+  - name: Install java jdk
+    yum:
+      name: /usr/local/src/jdk-8u101-linux-x64.rpm
+      state: present
+
+  - name: Remove jdk rpm
+    file:
+      path: /usr/local/src/jdk-8u101-linux-x64.rpm
+      state: absent
+
+
+  - name: Enforce permission on /apps
+    file:
+      path: /apps
+      owner: oracle 
+      mode: 0755
+      recurse: yes 
+
+  - name: Enforce permission on /oradata
+    file:
+      path: /oradata
+      owner: oracle 
+      mode: 0755
+      recurse: yes
+
+  - name: Enforce permission on /backups
+    file:
+      path: /backups
+      owner: oracle 
+      mode: 0755
+      recurse: yes

@@ -1,0 +1,41 @@
+---
+- name: DX2 fixes
+  hosts: webserver03
+  become: yes
+
+  tasks:
+  - name: Update /etc/yum.conf
+    lineinfile:
+       dest: /etc/yum.conf
+       regexp: '^gpgcheck='
+       line: 'gpgcheck=1'
+
+  - name: Setting repo_gpgcheck 1
+    lineinfile:
+       dest: /etc/yum.conf
+       insertafter: '^gpgcheck'
+       line: 'repo_gpgcheck=1'
+
+  - name: List files under httpd conf dir
+##    shell: "rpm -qf /etc/httpd/conf/httpd.conf"
+    shell: "locate /etc/ld.so.conf.d/*.conf"
+    register: command_result
+
+  ##- debug: var=command_result.stdout_lines
+
+  - name: Check packages the come from
+    shell: "rpm -qf {{ item }}"
+    with_items:
+       - "{{ command_result.stdout_lines}}"
+    register: command_result2
+
+  - name: Check package files
+    shell: "rpm -ql  {{item}}"
+  #- Flattening the array results"
+    with_items: "{{command_result2.results  | map(attribute='stdout_lines') | list}}"
+  #  with_items: "{{command_result2.results[0].stdout_lines}}"
+    register: command_result3
+
+  - debug: var=command_result3.results[0].stdout_lines
+  #- debug: var="{{item.stdout}}"
+    #with_items : command_result2.results

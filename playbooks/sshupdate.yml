@@ -1,0 +1,18 @@
+---
+---
+- name: Update ssh
+  hosts: vms_teacher
+  become: yes
+
+  tasks:
+  - name: Comment out Port in /etc/ssh/sshd_config
+    replace:
+        dest: /etc/ssh/sshd_config
+        regexp: '^Port'
+        replace: '#Port'
+    tags: update-ssh
+  
+  - name: Restarting ssh service 
+    service:
+      name: sshd
+      state: reloaded

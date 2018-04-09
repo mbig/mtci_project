@@ -1,0 +1,102 @@
+---
+- name: Clean up VMs
+  hosts: clean_hosts
+  become: yes
+
+  tasks:
+  - name: Cleaning up /backups
+    shell: rm -rf /backups/*
+
+  - name: Cleaning up /apps
+    shell: rm -rf /apps/*
+
+  - name: Cleaning up /oradata
+    shell: rm -rf /oradata/*
+
+  - name: Updating the bash profile file
+    copy:
+      src: /usr/local/src/.bash_profile
+      dest: /home/oracle/.bash_profile
+      owner: oracle
+      group: oracle
+      mode: 0644
+
+  - name: Cleaning up oracle home 1
+    file:
+        path: /home/oracle/Installation
+        state: absent
+
+  - name: Cleaning up oracle home 2
+    file:
+        path: /home/oracle/unixstuff
+        state: absent
+
+  - name: Cleaning up oracle home 3
+    file:
+        path: /home/oracle/Unixstuff
+        state: absent
+
+  - name: Cleaning up oracle home 4
+    file:
+        path: /home/oracle/oradiag_oracle
+        state: absent
+
+  - name: Cleaning up oracle home 5
+    file:
+        path: /home/oracle/fruits
+        state: absent
+
+  - name: Cleaning up oracle home 6
+    file:
+        path: /home/oracle/scripts
+        state: absent
+
+  - name: Cleaning up oracle home 7
+    file:
+        path: /home/oracle/installations
+        state: absent
+
+  - name: Cleaning up oracle home 8
+    file:
+        path: /home/oracle/scripts.tar
+        state: absent        
+
+  - name: Cleaning up oracle home 9
+    file:
+        path: /home/oracle/script.tar
+        state: absent
+
+  - name: Cleaning up oracle home 10
+    file:
+        path: /home/oracle/SQL_NEW
+        state: absent
+
+  - name: Cleaning up oracle home 11
+    file:
+        path: /home/oracle/sqlnew.tar
+        state: absent
+
+  - name: Cleaning up oracle home 12
+    file:
+        path: /home/oracle/unixstuff_toapp.tar
+        state: absent
+
+  - name: Cleaning up oracle home 13
+    file:
+        path: /home/oracle/Tar_practice
+        state: absent
+
+  - name: Cleaning up oracle home 14
+    file:
+        path: /home/oracle/Fruits
+        state: absent
+
+  - name: Cleaning up oracle home 15
+    file:
+        path: /home/oracle/installation
+        state: absent
+
+  - name: Cleaning up oracle home 16
+    file:
+        path: /home/oracle/oraInventory
+        state: absent

@@ -1,0 +1,152 @@
+---
+- name: DX2 fixes
+  hosts: webserver03
+  become: yes
+  gather_facts: True
+
+  tasks:
+  - name: "Check existence of yum on Centos"
+    stat:
+       path: /etc/yum.conf
+    register: yum_config_file
+    when: ansible_distribution == "RedHat"
+
+  - name: Ensure gpgcheck Enabled in Main Yum Configuration
+    ini_file:
+       dest: "{{item}}"
+       section: main
+       option: gpgcheck
+       value: 1
+       create: False
+    with_items: "/etc/yum.conf"
+    when: ansible_distribution == "RedHat" or yum_config_file.stat.exists
+
+  - name: Check if repo_gpgcheck is in Yum Configuration
+    shell: grep ^repo_gpgcheck /etc/yum.conf
+    register: repo_result
+    failed_when: repo_result.rc == 2
+ 
+  - name: Ensure gpgcheck Enabled for Repository Metadata
+    ini_file:
+       dest: "{{item}}"
+       section: main
+       option: repo_gpgcheck
+       value: 1
+       create: False
+    with_items: "/etc/yum.conf"
+    when: repo_result | length > 0
+
+  - name: "Checking if AIDE uses FIPS 140-2 for Validating Hashes"
+    shell: grep ^NORMAL /etc/aide.conf
+    register: aide_result
+    failed_when: False
+
+  - name: "Configure AIDE to Use FIPS 140-2 for Validating Hashes"
+    lineinfile:
+       dest: /etc/aide.conf
+       regexp: "^NORMAL"
+       line: 'NORMAL = FIPSR+sha512'
+    when: aide_result | length > 0
+
+  - name: "Searching for files with no owners"
+    shell: "find / -nouser 2> errors.txt"
+    register: files_with_no_owners
+    failed_when: False
+    changed_when: False
+
+  - name: "Correcting file ownership"
+    shell: "chown -R root:root {{item}}"
+    with_items: "{{ files_with_no_owners.stdout_lines }}"
+    when: files_with_no_owners.stdout_lines | length > 0
+
+  - name: "Disable POST password expiration"
+    lineinfile:
+        create=yes
+        dest="/etc/default/useradd"
+        regexp="^INACTIVE"
+        line="INACTIVE=35"
+
+  - name: "Checking if CREATE_HOME is in /etc/login.defs"
+    shell: grep ^CREATE_HOME /etc/login.defs
+    register: check_result
+    failed_when: False
+
+  - name: "Updating /etc/login.defs with CREATE_HOME"
+    lineinfile:
+       dest: /etc/login.defs
+       line: 'CREATE_HOME   yes'
+    when: check_result | length > 0
+
+  - name: "Checking if IP Forwarding is turned ON"
+    shell: grep ^net.ipv4.ip_forward /etc/sysctl.conf
+    register: ip_result
+    failed_when: False
+
+  - name: "Disable Kernel Parameter for IP Forwarding"
+    lineinfile:
+       dest: /etc/sysctl.conf
+       line: 'net.ipv4.ip_forward = 0'
+    when: ip_result | length > 0
+
+  - name: "Checking if Source-Routed Packets are accepted on all Interfaces"
+    shell: grep ^net.ipv6.conf.all.accept_source_route /etc/sysctl.conf
+    register: source_result
+    failed_when: False
+
+  - name: "Configure Kernel Parameter for accepting Source-Routed Packets for All Interfaces"
+    lineinfile:
+       dest: /etc/sysctl.conf
+       line: 'net.ipv6.conf.all.accept_source_route = 0'
+    when: source_result | length > 0
+
+  - name: "Verify Firewalld Enabled"
+    service:
+       name="{{item}}"
+       enabled="yes"
+       state="started"
+    with_items:
+        - firewalld
+
+  - name: "Configure Multiple DNS Servers in /etc/resolv.conf"
+    lineinfile:
+       dest: /etc/resolv.conf
+       insertafter: '^nameserver'
+       line: 'nameserver 10.2.4.19'
+
+  - name: "Check PermitRootLogin"
+    shell: grep ^PermitRootLogin  /etc/ssh/sshd_config
+    register: permit_result
+    failed_when: False
+
+  - name: "Disable SSH Root Login" 
+    lineinfile:
+        create=yes
+        dest="/etc/ssh/sshd_config"
+        line="PermitRootLogin no"
+    when: permit_result | length > 0
+
+  - name: "Check Ciphers"
+    shell: grep ^Ciphers  /etc/ssh/sshd_config
+    register: cipher_result
+    failed_when: False
+
+  - name: "Use Only FIPS 140-2 Validated Ciphers"
+    lineinfile:
+        create=yes
+        dest="/etc/ssh/sshd_config"
+        regexp="^Ciphers"
+        line="Ciphers aes128-ctr,aes192-ctr,aes256-ctr"
+    when: cipher_result | length > 0
+
+  - name: "Check MACs"
+    shell: grep ^MACs  /etc/ssh/sshd_config
+    register: mac_result
+    failed_when: False
+
+  - name: "Use Only FIPS 140-2 Validated MACs"
+    lineinfile:
+        create=yes
+        dest="/etc/ssh/sshd_config"
+        regexp="^MACs"
+        line="MACs hmac-sha2-512,hmac-sha2-256"
+    when: mac_result | length > 0

@@ -1,0 +1,10 @@
+---
+- name: Installing NTP Service
+  hosts: all
+  become: yes
+
+  roles:
+     - role: mtci.ntp 
+       ntp_config_server: [192.168.1.13]
+
+    

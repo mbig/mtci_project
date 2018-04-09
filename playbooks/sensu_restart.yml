@@ -1,0 +1,13 @@
+---
+- name: Restarting sensu
+  hosts: all 
+  become: yes
+
+  tasks:
+  - name: Running sensu client restart  
+    command: service sensu-client restart
+    register: output
+
+#  - debug: msg="{{ output.stdout }}"
+  - debug: var=output.stdout_lines
+    
