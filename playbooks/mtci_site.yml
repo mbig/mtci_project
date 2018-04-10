@@ -4,4 +4,4 @@
   become: yes
 
   roles:
-     - mtci.common
+  - mtci.common
