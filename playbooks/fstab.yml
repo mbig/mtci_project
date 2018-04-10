@@ -1,6 +1,6 @@
 ---
 - name: Get fstab
-  hosts: vms_mtci02 
+  hosts: vms_mtci03 
   become: yes
 
   tasks:
